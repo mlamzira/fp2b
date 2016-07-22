@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified">
+
+	<xs:element name="bean">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" type="fieldsSequence"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+			<xs:attribute name="type" type="xs:string" use="required"></xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:complexType name="fieldsSequence">
+		<xs:sequence>
+			<xs:element name="field" type="fieldType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="fieldType" > 
+		<xs:sequence >
+			<xs:element name="replacements" type="replacementsSequence" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+		<xs:attribute name="type" type="xs:string" use="required"></xs:attribute>
+		<xs:attribute name="length" type="xs:integer" use="required"></xs:attribute>
+		<xs:attribute name="datePattern" type="xs:string"></xs:attribute>
+		<xs:attribute name="defaultValue" type="xs:string"></xs:attribute>
+		<xs:attribute name="hardCoded" type="xs:string"></xs:attribute>
+		<xs:attribute name="prefix" type="xs:string"></xs:attribute>
+		<xs:attribute name="suffix" type="xs:string"></xs:attribute>
+		<xs:attribute name="required" type="xs:string"></xs:attribute>
+		<xs:attribute name="parser" type="xs:string"></xs:attribute>
+		<xs:attribute name="blanck" type="xs:boolean"></xs:attribute>
+		
+	</xs:complexType>
+	
+	
+	<xs:complexType name="replacementsSequence">
+		<xs:sequence >
+			<xs:element name="replace" type="replacementType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="replacementType">
+		<xs:attribute name="oldChar" type="letter" use="required"></xs:attribute>
+		<xs:attribute name="newChar" type="letter" use="required"></xs:attribute>
+		<xs:attribute name="when" type="whenType" default="all"></xs:attribute>
+	</xs:complexType>
+
+	<xs:simpleType name="letter">
+		<xs:restriction base="xs:string">
+			<xs:length value="1"></xs:length>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+	<xs:simpleType name="whenType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="all" />
+			<xs:enumeration value="serialize" />
+			<xs:enumeration value="deserialize" />
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

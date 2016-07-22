@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<bean name="pojo" type="com.soprasteria.fp2bean.example.Pojo" >
+	<fields>
+		<field name="pkKey" length="9" type="java.lang.Integer" prefix="TI" required="true"/>
+		<field name="user.test.fld1" length="10" type="java.lang.String" 
+			parser="com.soprasteria.fp2bean.example.MyParser">
+			<replacements>
+				<replace oldChar="." newChar="," when="deserialize" />
+				<replace oldChar="," newChar=";" when="serialize" />
+			</replacements>
+		</field>
+		<field name="creationDate" length="8" type="java.util.Date" datePattern="dd/mm/yy"/>
+	</fields>
+</bean>
